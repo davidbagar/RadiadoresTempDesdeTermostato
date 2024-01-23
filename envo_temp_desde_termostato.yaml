@@ -2,7 +2,7 @@ blueprint:
   name: Envío de temperatura objetivo desde termostatos manuales
   description: Envía una temperatura objetivo desde un termostato al resto de entidades de calefacción
   domain: automation
-  source_url: https://github.com/davidbagar/RadiadoresTempDesdeTermostato.git
+  source_url: https://github.com/davidbagar/RadiadoresTempDesdeTermostato/blob/main/envo_temp_desde_termostato.yaml
   input:
     climate_source:
       name: Termostato origen
