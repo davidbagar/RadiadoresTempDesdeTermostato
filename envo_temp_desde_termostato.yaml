@@ -11,7 +11,7 @@ blueprint:
         entity:
           domain:
           - climate
-          multiple: true
+          multiple: false
     climate_target:
       name: Termostato destino
       description: Entidades que recibirán la actualización de temperatura.
