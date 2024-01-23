@@ -1,0 +1,36 @@
+blueprint:
+  name: Envío de temperatura objetivo desde termostatos manuales
+  description: Envía una temperatura objetivo desde un termostato al resto de entidades de calefacción
+  domain: automation
+  input:
+    climate_source:
+      name: Termostato origen
+      description: Termostato que enviará la actualización de temperatura.
+      selector:
+        entity:
+          domain:
+          - climate
+          multiple: false
+    climate_target:
+      name: Termostato destino
+      description: Entidades que recibirán la actualización de temperatura.
+      selector:
+        target:
+          entity:
+          - domain:
+            - climate
+variables:
+  climate_source: !input climate_source
+trigger:
+- platform: state
+  entity_id: !input climate_source
+condition:
+- condition: template
+  value_template: "{% if (trigger.to_state and trigger.from_state) %}\n  {{ trigger.to_state.attributes.temperature
+    != trigger.from_state.attributes.temperature }}\n{% endif %}"
+mode: queued
+action:
+- service: climate.set_temperature
+  target: !input climate_target
+  data_template:
+    temperature: '{{ state_attr(climate_source, ''temperature'') }}'
